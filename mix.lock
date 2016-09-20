@@ -1,0 +1,2 @@
+%{"pooler": {:hex, :pooler, "1.5.0", "0fd4be5d2976e6a2e9a1617623031758c26f200c1fca89e4a3c542747bec6371", [:rebar, :make], []},
+  "retry": {:hex, :retry, "0.5.0", "61ce3cca636370a7f630272ab5f965dd204d8ac6076a57bf9eca934bcaeec8ec", [:mix], []}}
