@@ -6,7 +6,7 @@ defmodule ParExecute.Simple do
     |> Enum.map(fn (task) -> Task.await(task) end)
   end
 
-  @doc "Supervised naive parallel execution implementation"
+  @doc "Supervised naive concurrent execution implementation"
   def naive_supervised_run(bulk_attrs) do
     bulk_attrs
     |> Enum.map(fn ({m, f, a}) ->
@@ -23,17 +23,17 @@ defmodule ParExecute.Simple do
   end
 
   @doc "Concurrently execute tasks in a list of {m, f, a}, not crashing the caller"
-  def run_nolink(bulk_attrs) do 
+  def run_nolink(bulk_attrs) do
     do_run(&Task.Supervisor.async_nolink/2, bulk_attrs)
   end
 
   @doc "Execute a list of {m, f, a} as a sequence of concurrent batches"
-  def batch(bulk_attrs, batch_size \\ 32) do 
+  def batch(bulk_attrs, batch_size \\ 32) do
     do_batch(&Task.Supervisor.async/2, bulk_attrs, batch_size)
   end
 
   @doc "Safe execute a list of {m, f, a} as a sequence of concurrent batches"
-  def batch_nolink(bulk_attrs, batch_size \\ 32) do 
+  def batch_nolink(bulk_attrs, batch_size \\ 32) do
     do_batch(&Task.Supervisor.async_nolink/2, bulk_attrs, batch_size)
   end
 

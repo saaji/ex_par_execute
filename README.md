@@ -1,4 +1,4 @@
 # ParExecute
 
-Parallel task execution examples.
+Concurrent task execution examples.
 
