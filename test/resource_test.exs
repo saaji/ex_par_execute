@@ -22,20 +22,20 @@ defmodule ParExecute.ResourceTest do
   end
 
   test "single batch" do
-    r = gen_resource(:par_execute)
+    r = gen_resource(:batch_execute)
     sample = Enum.map(1 .. 1000, fn x -> {:ok, x * x} end)
     bulk_attrs = Enum.map(1 .. 1000, fn x -> {Kernel, :*, [x, x]} end)
 
-    assert sample == Resource.par_execute(bulk_attrs, r)
+    assert sample == Resource.batch(bulk_attrs, r)
   end
 
   test "multiple concurrent batches" do
-    r = gen_resource(:par_execute)
+    r = gen_resource(:multi_batch_execute)
     sample = Enum.map(1 .. 1000, fn x -> {:ok, x * x} end)
     bulk_attrs = Enum.map(1 .. 1000, fn x -> {Kernel, :*, [x, x]} end)
-    batches = Enum.map(1 .. 4, fn _ -> {Resource, :par_execute, [bulk_attrs, r]} end)
+    batches = Enum.map(1 .. 4, fn _ -> {Resource, :batch, [bulk_attrs, r]} end)
 
-    for res <- Simple.batch(batches) do
+    for res <- Simple.naive_run(batches) do
       assert sample == res
     end
   end

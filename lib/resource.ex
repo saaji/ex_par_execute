@@ -23,7 +23,7 @@ defmodule ParExecute.Resource do
     end
   end
 
-  def par_execute(bulk_attrs, pid, batch_size \\ 32) do
+  def batch(bulk_attrs, pid, batch_size \\ 32) do
     do_batch(bulk_attrs, pid, batch_size)
   end
 
